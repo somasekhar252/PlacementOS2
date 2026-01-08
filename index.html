@@ -35,7 +35,10 @@
       background-color: #020617;
       color: #f8fafc;
       overflow-x: hidden;
+      margin: 0;
     }
+    
+    /* Custom Scrollbar for OS look */
     .custom-scrollbar::-webkit-scrollbar {
       width: 4px;
     }
@@ -46,11 +49,14 @@
       background: #1e293b;
       border-radius: 10px;
     }
+    
+    /* UI Effects */
     .glass {
       background: rgba(15, 23, 42, 0.7);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
+    
     @keyframes spotlight {
       0% { opacity: 0; transform: translate(-72%, -62%) scale(0.5); }
       100% { opacity: 1; transform: translate(-50%, -40%) scale(1); }
@@ -59,10 +65,12 @@
       animation: spotlight 2s ease-out forwards;
     }
 
-    /* Print styles to ensure PDF generation is clean */
+    /* PDF Print Optimization */
     @media print {
-      body { background: white !important; }
+      body { background: white !important; color: black !important; }
+      #root { display: none; }
       #resume-content {
+        display: block !important;
         box-shadow: none !important;
         border: none !important;
         padding: 0 !important;
@@ -74,6 +82,7 @@
 </head>
 <body>
   <div id="root"></div>
+
   <script type="module" src="/index.tsx"></script>
 </body>
 </html>
