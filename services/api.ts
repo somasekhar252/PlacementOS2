@@ -1,40 +1,21 @@
-
 import { server } from '../server';
 
-<<<<<<< HEAD
-// Helper function to add timeout to promises
-const withTimeout = <T>(promise: Promise<T>, timeoutMs: number, errorMessage: string): Promise<T> => {
-  return Promise.race([
-    promise,
-    new Promise<T>((_, reject) => 
-      setTimeout(() => reject(new Error(errorMessage)), timeoutMs)
-    )
-  ]);
-};
-
-export const api = {
-  async get(endpoint: string, timeout: number = 15000) {
-    return withTimeout(
-      server.handleRequest(endpoint, 'GET'),
-      timeout,
-      `Request to ${endpoint} timed out after ${timeout}ms`
-    );
-  },
-
-  async post(endpoint: string, body: any, timeout: number = 60000) {
-    return withTimeout(
-      server.handleRequest(endpoint, 'POST', body),
-      timeout,
-      `Request to ${endpoint} timed out after ${timeout}ms`
-    );
-=======
 export const api = {
   async get(endpoint: string) {
-    return server.handleRequest(endpoint, 'GET');
+    try {
+      return await server.handleRequest(endpoint, 'GET');
+    } catch (error) {
+      console.error(`API GET Error [${endpoint}]:`, error);
+      throw error;
+    }
   },
 
   async post(endpoint: string, body: any) {
-    return server.handleRequest(endpoint, 'POST', body);
->>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
+    try {
+      return await server.handleRequest(endpoint, 'POST', body);
+    } catch (error) {
+      console.error(`API POST Error [${endpoint}]:`, error);
+      throw error;
+    }
   }
 };
