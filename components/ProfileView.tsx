@@ -80,6 +80,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({ onComplete }) => {
 
   useEffect(() => {
     const fetchProfile = async () => {
+<<<<<<< HEAD
       // Add timeout to prevent infinite loading
       const timeoutId = setTimeout(() => {
         console.warn("Profile fetch timeout - showing form");
@@ -92,6 +93,11 @@ const ProfileView: React.FC<ProfileViewProps> = ({ onComplete }) => {
         const data = await api.get('/profile');
         clearTimeout(timeoutId);
         
+=======
+      try {
+        setPermissionError(false);
+        const data = await api.get('/profile');
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
         if (data && data.profileCompleted) {
           setProfile(data);
           setIsEditing(false);
@@ -99,16 +105,25 @@ const ProfileView: React.FC<ProfileViewProps> = ({ onComplete }) => {
           setIsEditing(true);
         }
       } catch (err: any) {
+<<<<<<< HEAD
         clearTimeout(timeoutId);
+=======
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
         if (err.message === 'FIREBASE_PERMISSION_DENIED') {
           setPermissionError(true);
         } else {
           console.error("Profile view fetch error", err);
+<<<<<<< HEAD
           // Show form even on error so user can proceed
           setIsEditing(true);
         }
       } finally {
         clearTimeout(timeoutId);
+=======
+          setIsEditing(true);
+        }
+      } finally {
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
         setLoading(false);
       }
     };
@@ -120,6 +135,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({ onComplete }) => {
     setLoading(true);
     setPermissionError(false);
     const user = auth.currentUser;
+<<<<<<< HEAD
     if (!user) {
       setLoading(false);
       alert("Please log in to continue.");
@@ -135,6 +151,12 @@ const ProfileView: React.FC<ProfileViewProps> = ({ onComplete }) => {
     try {
       const result = await api.post('/synthesize-profile', { userDetails: form });
       clearTimeout(timeoutId);
+=======
+    if (!user) return;
+
+    try {
+      const result = await api.post('/synthesize-profile', { userDetails: form });
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
       
       const finalizedData = {
         ...result,
@@ -147,6 +169,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({ onComplete }) => {
       };
       
       setProfile(finalizedData);
+<<<<<<< HEAD
       
       // Generate briefing with timeout
       try {
@@ -158,17 +181,27 @@ const ProfileView: React.FC<ProfileViewProps> = ({ onComplete }) => {
         console.warn("Briefing generation failed or timed out, but profile is saved:", briefingErr);
         // Continue even if briefing fails
       }
+=======
+      await api.post('/generate-briefing', { profile: finalizedData });
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
       
       setLoading(false);
       setIsSuccess(true);
       if (onComplete) onComplete(finalizedData);
     } catch (err: any) {
+<<<<<<< HEAD
       clearTimeout(timeoutId);
+=======
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
       if (err.message === 'FIREBASE_PERMISSION_DENIED') {
         setPermissionError(true);
       } else {
         console.error("Synthesis error:", err);
+<<<<<<< HEAD
         alert(`AI Synthesis failed: ${err.message || 'Please check connectivity and try again.'}`);
+=======
+        alert("AI Synthesis failed. Please check connectivity.");
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
       }
       setLoading(false);
     }
@@ -190,7 +223,10 @@ const ProfileView: React.FC<ProfileViewProps> = ({ onComplete }) => {
         <div className="text-center space-y-2">
           <p className="text-slate-900 font-black uppercase text-xs tracking-[0.3em]">AI Synthesis Engine Active</p>
           <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Optimizing Professional Identity Matrix...</p>
+<<<<<<< HEAD
           <p className="text-slate-300 text-[9px] font-medium mt-4">This may take a moment. If it takes too long, please refresh the page.</p>
+=======
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
         </div>
       </div>
     );

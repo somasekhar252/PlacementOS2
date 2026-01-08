@@ -21,9 +21,16 @@ const ResumeCreator: React.FC<ResumeCreatorProps> = ({ initialTemplate }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [resumeData, setResumeData] = useState<any>(null);
+<<<<<<< HEAD
   const [activeTemplate, setActiveTemplate] = useState<string>(initialTemplate || 'The Scholar');
   
   const [sectionOrder, setSectionOrder] = useState<SectionKey[]>(['summary', 'education', 'experience', 'skills']);
+=======
+  const [activeTemplate, setActiveTemplate] = useState<string>(initialTemplate || 'FAANG Modern');
+  
+  // Section ordering state
+  const [sectionOrder, setSectionOrder] = useState<SectionKey[]>(['summary', 'skills', 'experience', 'education']);
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
 
   useEffect(() => {
     const prefill = async () => {
@@ -53,7 +60,11 @@ const ResumeCreator: React.FC<ResumeCreatorProps> = ({ initialTemplate }) => {
     const timeout = setTimeout(() => {
       if (isGenerating) {
         setIsGenerating(false);
+<<<<<<< HEAD
         setError("Synthesis timed out. The AI model is currently under high load.");
+=======
+        setError("Synthesis timed out. The AI model is currently under high load. Please try again.");
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
       }
     }, 25000);
 
@@ -64,11 +75,19 @@ const ResumeCreator: React.FC<ResumeCreatorProps> = ({ initialTemplate }) => {
       if (result && result.header && result.summary) {
         setResumeData(result);
       } else {
+<<<<<<< HEAD
         throw new Error("Incomplete synthesis. Please provide more detail.");
       }
     } catch (err: any) {
       clearTimeout(timeout);
       setError(err.message || 'Synthesis failed.');
+=======
+        throw new Error("Incomplete synthesis. Ensure your inputs provide enough professional detail.");
+      }
+    } catch (err: any) {
+      clearTimeout(timeout);
+      setError(err.message || 'Synthesis failed. Try shortening your descriptions.');
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
     } finally {
       setIsGenerating(false);
     }
@@ -96,6 +115,7 @@ const ResumeCreator: React.FC<ResumeCreatorProps> = ({ initialTemplate }) => {
     (window as any).html2pdf?.().from(element).set(opt).save();
   };
 
+<<<<<<< HEAD
   // Mimics the LaTeX style from images
   const renderScholarTemplate = (data: any) => (
     <div className="bg-white p-16 shadow-2xl min-h-[1050px] text-slate-950 font-serif leading-tight">
@@ -198,6 +218,22 @@ const ResumeCreator: React.FC<ResumeCreatorProps> = ({ initialTemplate }) => {
           if (key === 'skills') return (
             <section key={key}>
               <h4 className="text-xs font-black text-blue-600 uppercase tracking-widest border-b border-slate-100 pb-2 mb-4">Technical Stack</h4>
+=======
+  const renderOrderedSections = (data: any, theme: { accent: string, text: string }) => {
+    return sectionOrder.map((key) => {
+      switch (key) {
+        case 'summary':
+          return (
+            <section key="summary" className="transition-all duration-500">
+              <h4 className={`text-xs font-black text-${theme.accent} uppercase tracking-widest border-b border-slate-100 pb-2 mb-4`}>Professional Overview</h4>
+              <p className={`text-sm ${theme.text} leading-relaxed font-medium`}>{data.summary}</p>
+            </section>
+          );
+        case 'skills':
+          return (
+            <section key="skills" className="transition-all duration-500">
+              <h4 className={`text-xs font-black text-${theme.accent} uppercase tracking-widest border-b border-slate-100 pb-2 mb-4`}>Technical Proficiencies</h4>
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
               <div className="flex flex-wrap gap-2">
                 {data.skills?.map((s: string) => (
                   <span key={s} className="px-3 py-1 bg-slate-50 border border-slate-200 text-[10px] font-bold rounded-md text-slate-700">{s}</span>
@@ -205,24 +241,40 @@ const ResumeCreator: React.FC<ResumeCreatorProps> = ({ initialTemplate }) => {
               </div>
             </section>
           );
+<<<<<<< HEAD
           if (key === 'experience') return (
             <section key={key}>
                <h4 className="text-xs font-black text-blue-600 uppercase tracking-widest border-b border-slate-100 pb-2 mb-4">Experience & Projects</h4>
                <div className="space-y-6">
+=======
+        case 'experience':
+          return (
+            <section key="experience" className="transition-all duration-500">
+              <h4 className={`text-xs font-black text-${theme.accent} uppercase tracking-widest border-b border-slate-100 pb-2 mb-4`}>Impact & Experience</h4>
+              <div className="space-y-6">
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
                 {data.experience?.map((exp: any, i: number) => (
                   <div key={i}>
                     <div className="flex justify-between items-baseline mb-1">
                       <h5 className="font-black text-slate-900 text-sm">{exp.role}</h5>
                       <span className="text-[10px] font-black text-slate-400">{exp.duration}</span>
                     </div>
+<<<<<<< HEAD
                     <p className="text-xs font-black text-blue-600 mb-3">{exp.company}</p>
                     <ul className="list-disc pl-5 space-y-2">
                       {exp.achievements?.map((a: string, j: number) => (
                         <li key={j} className="text-xs text-slate-700 leading-relaxed font-medium">{a}</li>
+=======
+                    <p className={`text-xs font-black text-${theme.accent} mb-3`}>{exp.company}</p>
+                    <ul className="list-disc pl-5 space-y-2">
+                      {exp.achievements?.map((a: string, j: number) => (
+                        <li key={j} className={`text-xs ${theme.text} leading-relaxed font-medium`}>{a}</li>
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
                       ))}
                     </ul>
                   </div>
                 ))}
+<<<<<<< HEAD
                </div>
             </section>
           );
@@ -406,3 +458,12 @@ const ResumeCreator: React.FC<ResumeCreatorProps> = ({ initialTemplate }) => {
 };
 
 export default ResumeCreator;
+=======
+              </div>
+            </section>
+          );
+        case 'education':
+          return data.education && (
+            <section key="education" className="transition-all duration-500">
+              <h4 className={`text-xs font-black text-${theme.accent} uppercase tracking
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe

@@ -16,6 +16,7 @@ class FirebaseBackend {
     }
 
     try {
+<<<<<<< HEAD
       // Remove markdown code blocks
       let cleanText = text.replace(/```json|```/g, '').trim();
       
@@ -50,6 +51,23 @@ class FirebaseBackend {
       }
 
       const jsonString = cleanText.substring(start, end + 1);
+=======
+      let cleanText = text.replace(/```json|```/g, '').trim();
+      const firstBrace = cleanText.indexOf('{');
+      const lastBrace = cleanText.lastIndexOf('}');
+      
+      if (firstBrace === -1) {
+        // If it's an array
+        const firstBracket = cleanText.indexOf('[');
+        const lastBracket = cleanText.lastIndexOf(']');
+        if (firstBracket !== -1 && lastBracket !== -1) {
+          return JSON.parse(cleanText.substring(firstBracket, lastBracket + 1));
+        }
+        throw new Error("No JSON structure found.");
+      }
+
+      let jsonString = cleanText.substring(firstBrace, lastBrace + 1);
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
       return JSON.parse(jsonString);
     } catch (e: any) {
       console.error("AI Parsing Error. Raw Content:", text);
@@ -77,18 +95,25 @@ class FirebaseBackend {
       }
 
       if (method === 'POST' && user) {
+<<<<<<< HEAD
         // Get API key from Vite environment variables (defined in vite.config.ts)
         const apiKey = (process.env.API_KEY || process.env.GEMINI_API_KEY) as string;
         if (!apiKey) {
           throw new Error("GEMINI_API_KEY is not configured. Please set it in your environment variables.");
         }
         const ai = new GoogleGenAI({ apiKey });
+=======
+        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
         if (endpoint === '/synthesize-profile') return this.handleProfileSynthesis(ai, user.uid, body);
         if (endpoint === '/generate-briefing') return this.handleBriefingGeneration(ai, user.uid, body);
         if (endpoint === '/chat') return this.handleChat(ai, body);
         if (endpoint === '/analyze-resume') return this.handleResumeAnalysis(ai, body);
         if (endpoint === '/generate-resume') return this.handleResumeGeneration(ai, body);
+<<<<<<< HEAD
         if (endpoint === '/generate-assessment') return this.handleAssessmentGeneration(ai, body);
+=======
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
       }
       throw new Error("Invalid endpoint");
     } catch (error: any) {
@@ -97,6 +122,7 @@ class FirebaseBackend {
     }
   }
 
+<<<<<<< HEAD
   private async handleAssessmentGeneration(ai: any, body: any) {
     const { topic, difficulty, count = 30 } = body;
     const response = await ai.models.generateContent({
@@ -123,6 +149,8 @@ class FirebaseBackend {
     return this.sanitizeJson(response.text);
   }
 
+=======
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
   private async handleProfileSynthesis(ai: any, uid: string, body: any) {
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
@@ -173,6 +201,11 @@ class FirebaseBackend {
   }
 
   private async handleChat(ai: any, body: any) {
+<<<<<<< HEAD
+=======
+    // Map history to the required { role, parts: [{ text }] } format
+    // Filter out potential invalid messages and ensure it alternates user/model
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
     const contents = body.history
       .filter((m: any) => m.text && m.text.trim())
       .map((m: any) => ({
@@ -180,7 +213,14 @@ class FirebaseBackend {
         parts: [{ text: m.text }]
       }));
 
+<<<<<<< HEAD
     if (contents.length > 0 && contents[0].role === 'model') {
+=======
+    // Gemini requires the first message to be from 'user'
+    if (contents.length > 0 && contents[0].role === 'model') {
+      // If history starts with a model greeting, we prepend a silent user context message
+      // or just remove it if it's a generic static greeting.
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
       contents.shift(); 
     }
 

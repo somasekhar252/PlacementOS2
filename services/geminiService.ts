@@ -25,6 +25,10 @@ export const matchResumeToJob = async (resumeText: string, jobDescription: strin
   }
 };
 
+<<<<<<< HEAD
+=======
+// This function is now also backend-driven
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
 export const generateRecruiterResume = async (userDetails: any, templateType: string) => {
   try {
     return await api.post('/generate-resume', { userDetails, templateType });
@@ -32,6 +36,7 @@ export const generateRecruiterResume = async (userDetails: any, templateType: st
     throw error;
   }
 };
+<<<<<<< HEAD
 
 export const generateAssessment = async (topic: string, difficulty: string, count: number = 30) => {
   try {
@@ -41,3 +46,5 @@ export const generateAssessment = async (topic: string, difficulty: string, coun
     throw error;
   }
 };
+=======
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe

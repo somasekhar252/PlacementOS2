@@ -1,14 +1,20 @@
 
 import React, { useState, useEffect } from 'react';
 import { api } from '../services/api';
+<<<<<<< HEAD
 import AssessmentCenter from '../pages/AssessmentCenter';
+=======
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
 
 const OpportunityHub: React.FC = () => {
   const [activeView, setActiveView] = useState<'jobs' | 'assessments'>('jobs');
   const [jobs, setJobs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('');
+<<<<<<< HEAD
   const [selectedAssessment, setSelectedAssessment] = useState<any>(null);
+=======
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -24,6 +30,7 @@ const OpportunityHub: React.FC = () => {
     fetchJobs();
   }, []);
 
+<<<<<<< HEAD
   const assessments = [
     { 
       id: 'apt-1', 
@@ -87,11 +94,14 @@ const OpportunityHub: React.FC = () => {
     }
   ];
 
+=======
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
   const filteredJobs = jobs.filter(j => 
     j.title.toLowerCase().includes(filter.toLowerCase()) || 
     j.company.toLowerCase().includes(filter.toLowerCase())
   );
 
+<<<<<<< HEAD
   // If a user chooses to initialize an assessment, we show the full assessment engine
   if (selectedAssessment) {
     return (
@@ -102,6 +112,8 @@ const OpportunityHub: React.FC = () => {
     );
   }
 
+=======
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
   return (
     <div className="space-y-10 animate-in fade-in duration-700 pb-12">
       <div className="flex flex-col md:flex-row justify-between items-end gap-6">
@@ -183,6 +195,7 @@ const OpportunityHub: React.FC = () => {
           )}
         </div>
       ) : (
+<<<<<<< HEAD
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 bg-blue-600 p-10 rounded-[3rem] text-white flex items-center justify-between relative overflow-hidden shadow-2xl">
@@ -241,6 +254,10 @@ const OpportunityHub: React.FC = () => {
           <div className="bg-slate-50 p-10 rounded-[3rem] border border-dashed border-slate-200 text-center">
              <p className="text-slate-400 font-bold italic text-sm">More specialized assessments are synthesized weekly based on market demand.</p>
           </div>
+=======
+        <div className="text-center py-20 bg-white rounded-[3rem] border border-dashed border-slate-300">
+           <p className="text-slate-500">Assessment Center Loading...</p>
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
         </div>
       )}
     </div>

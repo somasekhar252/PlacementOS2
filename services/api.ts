@@ -1,6 +1,7 @@
 
 import { server } from '../server';
 
+<<<<<<< HEAD
 // Helper function to add timeout to promises
 const withTimeout = <T>(promise: Promise<T>, timeoutMs: number, errorMessage: string): Promise<T> => {
   return Promise.race([
@@ -26,5 +27,14 @@ export const api = {
       timeout,
       `Request to ${endpoint} timed out after ${timeout}ms`
     );
+=======
+export const api = {
+  async get(endpoint: string) {
+    return server.handleRequest(endpoint, 'GET');
+  },
+
+  async post(endpoint: string, body: any) {
+    return server.handleRequest(endpoint, 'POST', body);
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
   }
 };

@@ -18,6 +18,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setActiveTab }) => {
           const data = await api.get('/dashboard-briefing');
           if (data) setBriefing(data);
           else {
+<<<<<<< HEAD
             try {
               const fresh = await api.post('/generate-briefing', { profile });
               setBriefing(fresh);
@@ -37,6 +38,14 @@ const Dashboard: React.FC<DashboardProps> = ({ setActiveTab }) => {
         if (err.message === 'Unauthorized') {
           console.error("User not authenticated");
         }
+=======
+            const fresh = await api.post('/generate-briefing', { profile });
+            setBriefing(fresh);
+          }
+        }
+      } catch (err) {
+        console.error("Dashboard error", err);
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
       } finally {
         setLoading(false);
       }
@@ -63,6 +72,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setActiveTab }) => {
       <div className="p-20 text-center bg-white rounded-[3rem] border border-dashed border-slate-200">
         <div className="text-5xl mb-6">🛰️</div>
         <h3 className="text-xl font-black text-slate-900 mb-2">OS Standby</h3>
+<<<<<<< HEAD
         <p className="text-slate-500 max-w-sm mx-auto font-medium mb-6">Please finalize your professional profile to activate the Career Strategy Briefing engine.</p>
         <button
           onClick={() => setActiveTab('profile')}
@@ -70,6 +80,9 @@ const Dashboard: React.FC<DashboardProps> = ({ setActiveTab }) => {
         >
           Complete Profile
         </button>
+=======
+        <p className="text-slate-500 max-w-sm mx-auto font-medium">Please finalize your professional profile to activate the Career Strategy Briefing engine.</p>
+>>>>>>> 619c02e09be8e47f5eb8092a7aefaab1d7fe74fe
       </div>
     );
   }
